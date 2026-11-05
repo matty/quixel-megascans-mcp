@@ -1,0 +1,30 @@
+[project]
+name = "quixel-megascans-mcp"
+version = "0.1.0"
+description = "Local MCP server to search Quixel Megascans on Fab, build a visual shortlist, and file what you download."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastmcp>=4.1.6",
+    "httpx>=0.28.1",
+]
+
+[project.scripts]
+quixel-megascans-mcp = "megascans_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/megascans_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["live: calls the real fab.com catalogue (deselected by default)"]
+addopts = "-m 'not live'"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]
